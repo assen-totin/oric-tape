@@ -1,0 +1,14 @@
+This is a small programme which coinverts a data file (usually a tape or disk
+image) into a sound representation (WAV file).
+
+The produced WAV file can then be played via a standard PC sound card and fed
+to the tape (cassette deck) input of any old 8-bit PC.
+
+The WAV file is encoded as if if was written by the 8-bit PC at 300 bps (
+usually callsed 'slow' mode). Hence, the PC should be set to loading in slow 
+mode.
+
+The encoding used is taken from the Oric Atmos PC, but may be useful for other
+1980's PCs. The ofrmat is explained inside the source file and can easily be
+modified if needed.
+ 
