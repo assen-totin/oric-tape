@@ -90,9 +90,9 @@ void byte2wav(int data, struct wav_data *wave_data) {
 
 	// Parity bit
 	if ((counter % 2) == 0)
-		generate_0(wave_data);
-	else
 		generate_1(wave_data);
+	else
+		generate_0(wave_data);
 
 	// End bits
 	generate_1(wave_data);
