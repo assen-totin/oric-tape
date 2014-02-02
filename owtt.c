@@ -136,7 +136,6 @@ int main(int argc, char**argv) {
 		0,
 		0,
 		0,
-		0,
 		0, 
 		0,
 		0, 
@@ -244,18 +243,18 @@ int main(int argc, char**argv) {
 	// Total bits of data: No of samples / sample_rate * 300
 	// We register the same number of bytes in order to store each bit as an int
 	runtime_data.bits_count = wave_header.subchunk2_size/2 / (float)wave_header.sample_rate * 300;
-	runtime_data.bits = (int *) malloc(runtime_data.bits_count);
+	runtime_data.bits = (int *) malloc(runtime_data.bits_count * sizeof(int));
 	memset(runtime_data.bits, '\0', runtime_data.bits_count);
 
 	// Total bytes for the final data
-	runtime_data.bytes_count = runtime_data.bits_count / 13;
-	char bytes[runtime_data.bytes_count];
+	unsigned int bytes_count = runtime_data.bits_count / 13;
+	char bytes[bytes_count];
 	int bytes_pos = 0;
 
 	printf("Threshold for 0: %u\n", runtime_data.threshold_0);
 	printf("Threshold for 1: %u\n", runtime_data.threshold_1);
 	printf("Expected bits: %u\n", runtime_data.bits_count);
-	printf("Expected bytes: %u\n", runtime_data.bytes_count);
+	printf("Expected bytes: %u\n", bytes_count);
 
 	// Read the rest of the file, process byte by byte
 	int i;
@@ -288,6 +287,8 @@ int main(int argc, char**argv) {
 	FILE *fp_out = fopen(argv[2], "wb");
 	fwrite(bytes, 1, bytes_pos, fp_out);
 	fclose(fp_out);
+
+	free(runtime_data.bits);
 
 	return 0;
 }

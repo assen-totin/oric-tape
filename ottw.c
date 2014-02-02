@@ -139,6 +139,12 @@ int main(int argc, char**argv) {
 	wave_data.num_samples = 0;
 	wave_data.val = malloc(sizeof(short));
 
+	// Generate 230 bytes (10 seconds) of sync data for Oric: 0x16
+	int i;
+	for (i=0; i<230; i++) {
+		byte2wav(0x16, &wave_data);
+	}
+
 	// Generate sound
 	//generate_sine(1000, 5000, SAMPLE_RATE_CD, &wave_data);
 	//generate_sine(500, 2500, SAMPLE_RATE_CD, &wave_data);

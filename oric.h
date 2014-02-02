@@ -23,6 +23,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
 
 enum {
 	QUANTIZATION_NONE = 0,
@@ -80,6 +81,5 @@ struct r_data {
 	int bits_count;
 	int *bits;
 	int bits_pos;
-	int bytes_count;
 };
 
