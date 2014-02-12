@@ -1,14 +1,47 @@
-This is a small programme which coinverts a data file (usually a tape or disk
-image) into a sound representation (WAV file).
+This is a small programme which converts a data file (usually a tape or disk
+image) into a sound representation (WAV file) and back.
 
-The produced WAV file can then be played via a standard PC sound card and fed
-to the tape (cassette deck) input of any old 8-bit PC.
 
-The WAV file is encoded as if if was written by the 8-bit PC at 300 bps (
-usually callsed 'slow' mode). Hence, the PC should be set to loading in slow 
-mode.
+DATA-TO-WAV CONVERSION
+======================
 
-The encoding used is taken from the Oric Atmos PC, but may be useful for other
-1980's PCs. The ofrmat is explained inside the source file and can easily be
-modified if needed.
- 
+Use od2w. Give it the source and target file names. It will produce a 44.1 kHz 
+mono WAV file from your data file.
+
+The produced WAV file can be played via a standard PC sound card and fed to 
+the tape (cassette deck) input of Oric Atmos 8 bit PC (or any of its clones 
+like Pravetz 8D).
+
+The WAV file is encoded as if it was written by the 8-bit PC at 300 bps 
+(usually callsed 'slow' mode). Hence, the PC should be set to loading in slow 
+mode. For Oric, load with the following comand: 
+
+CLOAD "",S
+
+The actual data will be preceded by a few seconds of Oric sync sequence, 0x16. 
+Do note that Oric expects some header information rearding the content type
+(BASIC code, machine code etc.), autoplay (on or off) and memory address to
+load the programme to; you have to provide this header in your data file. 
+
+
+WAV-TO-DATA CONVERSION
+======================
+
+Use ow2d. Give it a source and target file names. It will produce a binary 
+representation of your WAV file.
+
+The WAV file can be recorded from the audio output of Oric Atmos. The WAV file 
+should be 44.1 kHz, mono. It should begin with the Oric Atmos sync sequence
+(several seconds of 0x16) followed by the Oric header. Only if these two are
+present the decoding will be successful. 
+
+The recording should be done in 'slow' mode (300 bps). For Oric Atmos, the 
+command to save the file is:
+
+CSAVE "SOME_PROG_NAME",S
+
+Regarding saving BASIC programs, do note that Oric stores the program operators
+not by their name (e.g., PRINT), but by thei relevant hex code. The ow2d will 
+not convert such hex codes back into BASIC operators; you should do this 
+manually if you need it. 
+
